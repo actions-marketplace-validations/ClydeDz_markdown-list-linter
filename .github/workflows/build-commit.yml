@@ -4,19 +4,17 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - README.md
-      - action.js
+    paths:
+      - 'src/**'
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - README.md
-      - action.js
+    paths:
+      - 'src/**'
 
 jobs:
   build_publish:
-    name: Build and publish npm package
+    name: Build and commit action
     runs-on: ubuntu-latest    
     
     steps:      
@@ -43,6 +41,8 @@ jobs:
         branch: main
         files: action.js
         force: true
+        email: 13506613+ClydeDz@users.noreply.github.com
+        name: GitHub Actions Autocommitter
     
     - name: Upload compiled action file as an artifact
       uses: actions/upload-artifact@v3
