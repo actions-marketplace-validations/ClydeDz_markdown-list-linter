@@ -36,7 +36,7 @@ async function run(): Promise<void> {
     })
     
     info(outputBuilder)
-    debug('outputBuilder')
+    debug('outputBuilder1')
     setOutput("name", "markdown-list-linter");
     setOutput("summary", result.summary);
     setOutput("errors", result.errorObject);    
