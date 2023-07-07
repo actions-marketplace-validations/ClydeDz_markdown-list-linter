@@ -35,7 +35,7 @@ This is what using this action might look like. You can skip the optional parame
 
 ```yaml
 - name: Lint markdown list
-  uses: ClydeDz/markdown-list-linter@1.0.0
+  uses: ClydeDz/markdown-list-linter@v1.0.0
   with:
     file: markdown-files/unordered_lists_and_headings.md 
     fail-on-error: false
@@ -48,7 +48,7 @@ If you need to access output variables, you'd have to provide an id to the step 
 ```yaml
 - id: lint123
   name: Lint markdown list
-  uses: ClydeDz/markdown-list-linter@1.0.0
+  uses: ClydeDz/markdown-list-linter@v1.0.0
   with:
     file: markdown-files/unordered_lists_and_headings.md
     fail-on-error: false   
