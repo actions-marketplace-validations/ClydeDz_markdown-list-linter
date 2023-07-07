@@ -49,4 +49,4 @@ jobs:
     - name: Upload compiled action file as an artifact
       uses: actions/upload-artifact@v3
       with:
-        path: ./website/build
+        path: action.js
