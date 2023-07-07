@@ -42,6 +42,7 @@ jobs:
       with:
         branch: main
         files: action.js
+        force: true
     
     - name: Upload compiled action file as an artifact
       uses: actions/upload-artifact@v3
