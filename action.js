@@ -2313,6 +2313,7 @@ var markdown_list_linter_1 = require_markdown_list_linter_min();
 var core_1 = require_core();
 async function run() {
   const markdownFile = (0, core_1.getInput)("file");
+  const failOnError = (0, core_1.getBooleanInput)("fail-on-error");
   if (!markdownFile) {
     (0, core_1.setFailed)("Markdown file not provided");
     return;
@@ -2336,8 +2337,10 @@ async function run() {
   (0, core_1.setOutput)("name", "markdown-list-linter");
   (0, core_1.setOutput)("summary", result.summary);
   (0, core_1.setOutput)("errors", result.errorObject);
-  if (result.errorObject) {
+  if (result.errorObject && failOnError) {
     (0, core_1.setFailed)(result.summary);
+  } else {
+    (0, core_1.warning)(result.summary);
   }
 }
 async function main() {
