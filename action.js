@@ -2311,9 +2311,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
 var markdown_list_linter_1 = require_markdown_list_linter_min();
 var core_1 = require_core();
-async function run() {
+async function runMarkdownListLinterAction() {
   const markdownFile = (0, core_1.getInput)("file");
   const failOnError = (0, core_1.getBooleanInput)("fail-on-error");
+  (0, core_1.debug)("outputBuilder1");
   if (!markdownFile) {
     (0, core_1.setFailed)("Markdown file not provided");
     return;
@@ -2333,19 +2334,17 @@ async function run() {
     });
   });
   (0, core_1.info)(outputBuilder);
-  (0, core_1.debug)("outputBuilder1");
   (0, core_1.setOutput)("name", "markdown-list-linter");
   (0, core_1.setOutput)("summary", result.summary);
   (0, core_1.setOutput)("errors", result.errorObject);
-  if (result.errorObject && failOnError) {
-    (0, core_1.setFailed)(result.summary);
-  } else {
-    (0, core_1.warning)(result.summary);
+  if (!result.errorObject) {
+    return;
   }
+  failOnError ? (0, core_1.setFailed)(result.summary) : (0, core_1.warning)(result.summary);
 }
 async function main() {
   try {
-    await run();
+    await runMarkdownListLinterAction();
   } catch (error) {
     (0, core_1.setFailed)(error);
   }
