@@ -4,7 +4,8 @@
   "description": "GitHub action to lint markdown lists and warn when list items are not alphabetically ordered",
   "scripts": {
     "compile": "tsc --project tsconfig.json",
-    "build": "tsc --project tsconfig.json",
+    "minify": "esbuild \"bin/action.js\" --bundle --platform=node --outfile=\"action.js\"",
+    "build": "npm run compile && npm run minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Clyde D'Souza",
@@ -14,6 +15,7 @@
     "markdown-list-linter": "^0.0.4"
   },
   "devDependencies": {
+    "esbuild": "^0.18.11",
     "typescript": "^5.1.6"
   }
 }
