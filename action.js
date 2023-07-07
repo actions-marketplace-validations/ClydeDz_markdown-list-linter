@@ -24,6 +24,7 @@ async function run() {
         });
     });
     (0, core_1.info)(outputBuilder);
+    (0, core_1.debug)('outputBuilder');
     (0, core_1.setOutput)("name", "markdown-list-linter");
     (0, core_1.setOutput)("summary", result.summary);
     (0, core_1.setOutput)("errors", result.errorObject);
