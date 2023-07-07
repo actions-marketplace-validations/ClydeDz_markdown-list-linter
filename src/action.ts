@@ -34,12 +34,16 @@ async function run(): Promise<void> {
         outputBuilder += '\n'
         })
     })
-    
+
     info(outputBuilder)
     debug('outputBuilder1')
     setOutput("name", "markdown-list-linter");
     setOutput("summary", result.summary);
     setOutput("errors", result.errorObject);    
+    
+    if(result.errorObject) {
+      setFailed(result.summary)
+    }
 }
 
 export async function main(): Promise<void> {
