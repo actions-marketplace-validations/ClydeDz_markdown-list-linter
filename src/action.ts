@@ -9,9 +9,10 @@ import {
     getBooleanInput,
   } from "@actions/core";
 
-async function run(): Promise<void> {
+async function runMarkdownListLinterAction(): Promise<void> {
     const markdownFile = getInput("file")
     const failOnError = getBooleanInput("fail-on-error")
+    debug('outputBuilder1')
 
     if(!markdownFile) {
         setFailed("Markdown file not provided")
@@ -38,22 +39,21 @@ async function run(): Promise<void> {
         })
     })
 
-    info(outputBuilder)
-    debug('outputBuilder1')
+    info(outputBuilder)    
     setOutput("name", "markdown-list-linter");
     setOutput("summary", result.summary);
     setOutput("errors", result.errorObject);    
     
-    if(result.errorObject && failOnError) {
-      setFailed(result.summary)
-    } else {
-      warning(result.summary)
+    if(!result.errorObject) {
+      return
     }
+
+    failOnError ? setFailed(result.summary) : warning(result.summary)
 }
 
 export async function main(): Promise<void> {
   try {
-    await run();
+    await runMarkdownListLinterAction();
   } catch (error: any) {
     setFailed(error);
   }
