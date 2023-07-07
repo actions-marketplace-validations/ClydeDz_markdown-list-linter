@@ -49,3 +49,5 @@ export async function main(): Promise<void> {
     setFailed(error);
   }
 }
+
+main()
