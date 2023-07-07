@@ -1,35 +1,57 @@
-# Compress Images
+# Markdown List Linter
 
 GitHub action to lint markdown lists and warn when list items are not alphabetically ordered
 
-Uses the [imagemin CLI](https://github.com/imagemin/imagemin-cli) to compress images from the input directory and then places the compressed images in the output directory. For JPG it uses [mozjpeg](https://github.com/mozilla/mozjpeg), PNG it uses [pngquant](https://github.com/kornelski/pngquant) and for GIFs it uses [gifsicle](https://www.lcdf.org/gifsicle/) compressors.
+Uses the [markdown-list-linter NPM package](https://github.com/ClydeDz/markdown-list-linter-npm) to lint the supplied markdown file, specifically the list items in the markdown file, and throw an error (or optionally, just warn) if the markdown list is not alphabetically sorted. 
 
 ## Inputs
 
-While all the input parameters are optional, feel free to supply them in case you need to customize the values. See example usage below to know how to customize these values. 
+A little description on the inputs below and also see example usage further down to know how to customize these values. 
 
-| **Parameter**           | **Description**                                                                             | **Default value** |
-| ----------------------- | ------------------------------------------------------------------------------------------- | ----------------- |
-| input-directory         | Directory that contains uncompressed images.                                                | images            |
-| output-directory        | Directory that will contain the compressed images                                           | dist              |
-| jpg-compression-quality | Set the level of compression for JPG image files. Value should be in the range of 0 to 100. | 40                |
-| png-compression-quality | Set the level of compression for PNG image files. Value should be in the range of 0 to 1.   | 0.4               |
-| gif-compression-quality | Set the level of compression for GIF image files. Value should be in the range of 1 to 3.   | 2                 |
+| **Parameter** | **Description**                                                                                  | **Default value** |
+| ------------- | ------------------------------------------------------------------------------------------------ | ----------------- |
+| file          | The full file path to the markdown file.                                                         | N/A               |
+| fail-on-error | Set this to false so that the action doesn't cause the workflow to fail if it spots lint issues. | true              |
 
 ## Outputs
 
-The compressed images will be sent to the supplied `output-directory`. Use the `actions/upload-artifact` to make the compressed images available as an artifact, or commit these files into the repository if that better suits your requirements.  
+### Output console 
+
+A report of the lint is printed in the step's console. Head over to the workflow and expand the step to see the output printed in the console. If `fail-on-error` is set to false, you will see a warning message but the step will pass. If `fail-on-error` is set to true, then the step will fail. 
+
+### Output variables 
+
+The following output variables will be available in the subsequent steps. A little description of what they might contain mentioned below.
+
+| **Parameter** | **Description**                                        |
+| ------------- | ------------------------------------------------------ |
+| name          | Name of the package.                                   |
+| summary       | A short summary produced by the markdown list linter.  |
+| errors        | The error object produced by the markdown list linter. |
 
 ## Example usage
 
 This is what using this action might look like. You can skip the optional parameters and/or customize the values as per the range described above. 
 
 ```yaml
-uses: clydedz/compress-images@v1
-with:
-  input-directory: images
-  output-directory: dist
-  jpg-compression-quality: 40
-  png-compression-quality: 0.4
-  gif-compression-quality: 2
+- name: Lint markdown list
+  uses: ClydeDz/markdown-list-linter@1.0.0
+  with:
+    file: markdown-files/unordered_lists_and_headings.md 
+    fail-on-error: false
+```
+
+### Printing output variables
+
+If you need to access output variables, you'd have to provide an id to the step and then use the desired output variable using the id defined, like the example below. 
+
+```yaml
+- id: lint123
+  name: Lint markdown list
+  uses: ClydeDz/markdown-list-linter@1.0.0
+  with:
+    file: markdown-files/unordered_lists_and_headings.md
+    fail-on-error: false   
+
+- run: echo ${{ steps.lint123.outputs.summary }}
 ```
