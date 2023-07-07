@@ -55,3 +55,13 @@ If you need to access output variables, you'd have to provide an id to the step 
 
 - run: echo ${{ steps.lint123.outputs.summary }}
 ```
+
+## A complete solution
+
+This functionality is available to be consumed in three different ways:
+
+* ⚡ [A GitHub Action](https://github.com/marketplace/actions/markdown-list-linter) as part of your CI/CD process
+
+* 📦 [An NPM package](https://www.npmjs.com/package/markdown-list-linter) that can be consumed in your JavaScript or TypeScript code
+
+* 💻 [A CLI](https://www.npmjs.com/package/markdown-list-linter-cli) that you can run in your terminal
