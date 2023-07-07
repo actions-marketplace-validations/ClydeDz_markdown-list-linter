@@ -2336,6 +2336,9 @@ async function run() {
   (0, core_1.setOutput)("name", "markdown-list-linter");
   (0, core_1.setOutput)("summary", result.summary);
   (0, core_1.setOutput)("errors", result.errorObject);
+  if (result.errorObject) {
+    (0, core_1.setFailed)(result.summary);
+  }
 }
 async function main() {
   try {
