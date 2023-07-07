@@ -4,6 +4,7 @@ import {
     setOutput,
     setFailed,
     info,
+    debug,
   } from "@actions/core";
 
 async function run(): Promise<void> {
@@ -35,6 +36,7 @@ async function run(): Promise<void> {
     })
     
     info(outputBuilder)
+    debug('outputBuilder')
     setOutput("name", "markdown-list-linter");
     setOutput("summary", result.summary);
     setOutput("errors", result.errorObject);    
