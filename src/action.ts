@@ -5,13 +5,16 @@ import {
     setFailed,
     info,
     debug,
+    warning,
+    getBooleanInput,
   } from "@actions/core";
 
 async function run(): Promise<void> {
     const markdownFile = getInput("file")
+    const failOnError = getBooleanInput("fail-on-error")
 
     if(!markdownFile) {
-        setFailed("Markdown file not provided");
+        setFailed("Markdown file not provided")
         return
     }
 
@@ -41,8 +44,10 @@ async function run(): Promise<void> {
     setOutput("summary", result.summary);
     setOutput("errors", result.errorObject);    
     
-    if(result.errorObject) {
+    if(result.errorObject && failOnError) {
       setFailed(result.summary)
+    } else {
+      warning(result.summary)
     }
 }
 

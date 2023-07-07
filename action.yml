@@ -10,6 +10,12 @@ inputs:
     description: The full file path to the markdown file.
     required: true
 
+  fail-on-error:
+    description: >
+      Set this to false so that the action doesn't cause the workflow to fail if it spots lint issues.
+      When set to false, it only produces a warning. 
+    default: true
+
 outputs:
   name:
     description: Name of the package.
